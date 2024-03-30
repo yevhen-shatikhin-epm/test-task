@@ -1,0 +1,9 @@
+﻿Fixed test was provided in Scenario1.
+
+I would advise Junior QE:
+1) to use an IDE such as Visual Studio to develop tests. IDE checks the code for typos and compile-time errors (such as referring to variables before they are declared). It also helps build the code and run it.
+2) to run the tests before submitting the work for code review. Running the tests ensures that they are bug-free and working as expected; besides, it saves time for people that review the code.
+3) to use design patterns, such as Page Object Model for UI testing, and design principles like SOLID to write more readable and quality code. I would also recommend moving initialization of all dependencies to SetUp method, as this makes the test more readable and can be reused in subsequent tests.
+4) not to use Thread.Sleep() in tests. We never know how long do we need to wait, as some page can take longer to load due to API calls/DB querying/file system manipulation, etc. I would recommended to setup waits for some specific conditions and set default timeout in configuration file.
+5) to read application URL from configuration file, as it is subject to change in different environments. This way we can rerun the test for QA or Prod environments.
+6) not to commit sensitive data, such as username and password, to VCS. Moreover, this data should be read from local configuration (environment variables) or from Vault, where it can be stored in secure manner.
