@@ -20,15 +20,13 @@ public class LoginService
 
     public IEnumerable<LoginFail> GetLoginFailTotal(string? username = null, int? failCount = null, int? fetchLimit = null)
     {
-        var response = _client.GetJson<IEnumerable<LoginFail>>(
-            "loginfailtotal?user_name={username}?fail_count={failCount}?fetch_limit={fetchLimit}",
-            new
-            {
-                username,
-                failCount,
-                fetchLimit
-            }
-        );
+        var request = new RestRequest("loginfailtotal", Method.Get);
+
+        if (username != null) request.AddParameter("user_name", username);
+        if (failCount != null) request.AddParameter("fail_count", (int)failCount);
+        if (fetchLimit != null) request.AddParameter("fetch_limit", (int)fetchLimit);
+
+        var response = _client.Get<IEnumerable<LoginFail>>(request);
 
         return response!;
     }
